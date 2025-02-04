@@ -10,6 +10,7 @@
 
 JPH_NAMESPACE_BEGIN
 
+#ifdef JPH_OBJECT_STREAM
 JPH_IMPLEMENT_SERIALIZABLE_NON_VIRTUAL(SkeletalAnimation::JointState)
 {
 	JPH_ADD_ATTRIBUTE(JointState, mRotation)
@@ -34,7 +35,7 @@ JPH_IMPLEMENT_SERIALIZABLE_NON_VIRTUAL(SkeletalAnimation)
 	JPH_ADD_ATTRIBUTE(SkeletalAnimation, mAnimatedJoints)
 	JPH_ADD_ATTRIBUTE(SkeletalAnimation, mIsLooping)
 }
-
+#endif
 
 void SkeletalAnimation::JointState::FromMatrix(Mat44Arg inMatrix)
 {

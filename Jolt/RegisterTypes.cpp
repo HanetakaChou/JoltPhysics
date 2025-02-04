@@ -89,7 +89,9 @@ void RegisterTypesInternal(uint64 inVersionID)
 	JPH_ASSERT(Allocate != nullptr && Reallocate != nullptr && Free != nullptr && AlignedAllocate != nullptr && AlignedFree != nullptr, "Need to supply an allocator first or call RegisterDefaultAllocator()");
 #endif // !JPH_DISABLE_CUSTOM_ALLOCATOR
 
+#ifdef JPH_OBJECT_STREAM
 	JPH_ASSERT(Factory::sInstance != nullptr, "Need to create a factory first!");
+#endif
 
 	// Initialize dispatcher
 	CollisionDispatch::sInit();
@@ -122,6 +124,7 @@ void RegisterTypesInternal(uint64 inVersionID)
 	ScaledShape::sRegister();
 	EmptyShape::sRegister();
 
+#ifdef JPH_OBJECT_STREAM
 	// Create list of all types
 	const RTTI *types[] = {
 		JPH_RTTI(SkeletalAnimation),
@@ -173,6 +176,7 @@ void RegisterTypesInternal(uint64 inVersionID)
 
 	// Register them all
 	Factory::sInstance->Register(types, (uint)size(types));
+#endif
 
 	// Initialize default physics material
 	if (PhysicsMaterial::sDefault == nullptr)
@@ -181,9 +185,11 @@ void RegisterTypesInternal(uint64 inVersionID)
 
 void UnregisterTypes()
 {
+#ifdef JPH_OBJECT_STREAM
 	// Unregister all types
 	if (Factory::sInstance != nullptr)
 		Factory::sInstance->Clear();
+#endif
 
 	// Delete default physics material
 	PhysicsMaterial::sDefault = nullptr;

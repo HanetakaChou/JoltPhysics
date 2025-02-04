@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Jolt\Jolt.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Jolt\AABBTree\AABBTreeBuilder.cpp" />
+    <ClCompile Include="..\Jolt\Core\Color.cpp" />
+    <ClCompile Include="..\Jolt\Core\Factory.cpp" />
+    <ClCompile Include="..\Jolt\Core\IssueReporting.cpp" />
+    <ClCompile Include="..\Jolt\Core\JobSystemSingleThreaded.cpp" />
+    <ClCompile Include="..\Jolt\Core\JobSystemThreadPool.cpp" />
+    <ClCompile Include="..\Jolt\Core\JobSystemWithBarrier.cpp" />
+    <ClCompile Include="..\Jolt\Core\LinearCurve.cpp" />
+    <ClCompile Include="..\Jolt\Core\Memory.cpp" />
+    <ClCompile Include="..\Jolt\Core\Profiler.cpp" />
+    <ClCompile Include="..\Jolt\Core\RTTI.cpp" />
+    <ClCompile Include="..\Jolt\Core\Semaphore.cpp" />
+    <ClCompile Include="..\Jolt\Core\StringTools.cpp" />
+    <ClCompile Include="..\Jolt\Core\TickCounter.cpp" />
+    <ClCompile Include="..\Jolt\Geometry\ConvexHullBuilder.cpp" />
+    <ClCompile Include="..\Jolt\Geometry\ConvexHullBuilder2D.cpp" />
+    <ClCompile Include="..\Jolt\Geometry\Indexify.cpp" />
+    <ClCompile Include="..\Jolt\Geometry\OrientedBox.cpp" />
+    <ClCompile Include="..\Jolt\ObjectStream\SerializableObject.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\Body.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\BodyCreationSettings.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\BodyInterface.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\BodyManager.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\MassProperties.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Body\MotionProperties.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhase.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhaseBruteForce.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhaseQuadTree.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\QuadTree.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CastConvexVsTriangles.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CastSphereVsTriangles.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CollideConvexVsTriangles.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CollideSphereVsTriangles.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CollisionDispatch.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\CollisionGroup.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\EstimateCollisionResponse.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\GroupFilter.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\GroupFilterTable.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\ManifoldBetweenTwoFaces.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\NarrowPhaseQuery.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\NarrowPhaseStats.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\PhysicsMaterial.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\PhysicsMaterialSimple.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\BoxShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CapsuleShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CompoundShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ConvexHullShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ConvexShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CylinderShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\DecoratedShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\EmptyShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\HeightFieldShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\MeshShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\MutableCompoundShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\OffsetCenterOfMassShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\PlaneShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\RotatedTranslatedShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ScaledShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\Shape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\SphereShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\StaticCompoundShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TaperedCapsuleShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TaperedCylinderShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TriangleShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Collision\TransformedShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\ConeConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\Constraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\ConstraintManager.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\ContactConstraintManager.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\DistanceConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\FixedConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\GearConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\HingeConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\MotorSettings.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraintPath.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraintPathHermite.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\PointConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\PulleyConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\RackAndPinionConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\SixDOFConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\SliderConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\SpringSettings.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\SwingTwistConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\Constraints\TwoBodyConstraint.cpp" />
+    <ClCompile Include="..\Jolt\Physics\DeterminismLog.cpp" />
+    <ClCompile Include="..\Jolt\Physics\IslandBuilder.cpp" />
+    <ClCompile Include="..\Jolt\Physics\LargeIslandSplitter.cpp" />
+    <ClCompile Include="..\Jolt\Physics\PhysicsScene.cpp" />
+    <ClCompile Include="..\Jolt\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="..\Jolt\Physics\PhysicsUpdateContext.cpp" />
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyCreationSettings.cpp" />
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyMotionProperties.cpp" />
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyShape.cpp" />
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodySharedSettings.cpp" />
+    <ClCompile Include="..\Jolt\Physics\StateRecorderImpl.cpp" />
+    <ClCompile Include="..\Jolt\RegisterTypes.cpp" />
+    <ClCompile Include="..\Jolt\TriangleGrouper\TriangleGrouperClosestCentroid.cpp" />
+    <ClCompile Include="..\Jolt\TriangleGrouper\TriangleGrouperMorton.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitter.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterBinning.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterFixedLeafSize.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterLongestAxis.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterMean.cpp" />
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterMorton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Jolt\RegisterTypes.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{62a5df5b-4878-47e6-b604-16cde3e74ff4}</ProjectGuid>
+    <RootNamespace>Jolt</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>ClangCL</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Jolt</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Jolt</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Jolt</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Jolt</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>JPH_OBJECT_LAYER_BITS=32;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_CROSS_PLATFORM_DETERMINISTIC;JPH_USE_AVX2;JPH_USE_AVX;JPH_USE_SSE4_1;JPH_USE_SSE4_2;JPH_USE_LZCNT;JPH_USE_TZCNT;JPH_USE_F16C;JPH_USE_FMADD;_WIN32_WINNT=0x0601;_LIB;_DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <ExceptionHandling>false</ExceptionHandling>
+      <UndefinePreprocessorDefinitions>JPH_DEBUG_RENDERER;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <AdditionalOptions>-Werror=return-type %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>JPH_OBJECT_LAYER_BITS=32;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_CROSS_PLATFORM_DETERMINISTIC;JPH_USE_AVX2;JPH_USE_AVX;JPH_USE_SSE4_1;JPH_USE_SSE4_2;JPH_USE_LZCNT;JPH_USE_TZCNT;JPH_USE_F16C;JPH_USE_FMADD;_WIN32_WINNT=0x0601;_LIB;NDEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <ExceptionHandling>false</ExceptionHandling>
+      <UndefinePreprocessorDefinitions>JPH_DEBUG_RENDERER;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <AdditionalOptions>-Werror=return-type %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>JPH_OBJECT_LAYER_BITS=32;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_CROSS_PLATFORM_DETERMINISTIC;JPH_USE_AVX2;JPH_USE_AVX;JPH_USE_SSE4_1;JPH_USE_SSE4_2;JPH_USE_LZCNT;JPH_USE_TZCNT;JPH_USE_F16C;JPH_USE_FMADD;_WIN32_WINNT=0x0601;_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <ExceptionHandling>false</ExceptionHandling>
+      <UndefinePreprocessorDefinitions>JPH_DEBUG_RENDERER;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <AdditionalOptions>-Werror=return-type %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>JPH_OBJECT_LAYER_BITS=32;JPH_FLOATING_POINT_EXCEPTIONS_ENABLED;JPH_CROSS_PLATFORM_DETERMINISTIC;JPH_USE_AVX2;JPH_USE_AVX;JPH_USE_SSE4_1;JPH_USE_SSE4_2;JPH_USE_LZCNT;JPH_USE_TZCNT;JPH_USE_F16C;JPH_USE_FMADD;_WIN32_WINNT=0x0601;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <ExceptionHandling>false</ExceptionHandling>
+      <UndefinePreprocessorDefinitions>JPH_DEBUG_RENDERER;JPH_PROFILE_ENABLED;JPH_OBJECT_STREAM;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <AdditionalOptions>-Werror=return-type %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
