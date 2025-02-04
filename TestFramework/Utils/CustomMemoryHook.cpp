@@ -95,14 +95,18 @@ static int MyAllocHook(int nAllocType, void *pvData, size_t nSize, int nBlockUse
 	return true;
 }
 
+JPH_NAMESPACE_BEGIN
+
+AllocateFunction Allocate = AllocateHook;
+ReallocateFunction Reallocate = ReallocateHook;
+FreeFunction Free = FreeHook;
+AlignedAllocateFunction AlignedAllocate = AlignedAllocateHook;
+AlignedFreeFunction AlignedFree = AlignedFreeHook;
+
+JPH_NAMESPACE_END
+
 void RegisterCustomMemoryHook()
 {
-	Allocate = AllocateHook;
-	Reallocate = ReallocateHook;
-	Free = FreeHook;
-	AlignedAllocate = AlignedAllocateHook;
-	AlignedFree = AlignedFreeHook;
-
 	_CrtSetAllocHook(MyAllocHook);
 }
 
@@ -135,5 +139,57 @@ DisableCustomMemoryHook::DisableCustomMemoryHook()
 DisableCustomMemoryHook::~DisableCustomMemoryHook()
 {
 }
+
+static void *AllocateHook(size_t inSize)
+{
+	return malloc(inSize);
+}
+
+static void *ReallocateHook(void *inBlock, size_t inOldSize, size_t inNewSize)
+{
+	return realloc(inBlock, inNewSize);
+}
+
+static void FreeHook(void *inBlock)
+{
+	free(inBlock);
+}
+
+static void *AlignedAllocateHook(size_t inSize, size_t inAlignment)
+{
+#if defined(JPH_PLATFORM_WINDOWS)
+	// Microsoft doesn't implement posix_memalign
+	return _aligned_malloc(inSize, inAlignment);
+#else
+	void *block = nullptr;
+	JPH_SUPPRESS_WARNING_PUSH
+	JPH_GCC_SUPPRESS_WARNING("-Wunused-result")
+	JPH_CLANG_SUPPRESS_WARNING("-Wunused-result")
+	posix_memalign(&block, inAlignment, inSize);
+	JPH_SUPPRESS_WARNING_POP
+	return block;
+#endif
+}
+
+static void AlignedFreeHook(void *inBlock)
+{
+#if defined(JPH_PLATFORM_WINDOWS)
+	_aligned_free(inBlock);
+#else
+	free(inBlock);
+#endif
+}
+
+JPH_NAMESPACE_BEGIN
+
+AllocateFunction Allocate = AllocateHook;
+ReallocateFunction Reallocate = ReallocateHook;
+FreeFunction Free = FreeHook;
+AlignedAllocateFunction AlignedAllocate = AlignedAllocateHook;
+AlignedFreeFunction AlignedFree = AlignedFreeHook;
+
+JPH_EXPORT void RegisterDefaultAllocator() {}
+
+JPH_NAMESPACE_END
 
 #endif // _DEBUG && !JPH_DISABLE_CUSTOM_ALLOCATOR && !JPH_COMPILER_MINGW

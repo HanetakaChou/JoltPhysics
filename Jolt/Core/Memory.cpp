@@ -12,12 +12,9 @@ JPH_SUPPRESS_WARNINGS_STD_END
 JPH_NAMESPACE_BEGIN
 
 #ifdef JPH_DISABLE_CUSTOM_ALLOCATOR
-	#define JPH_ALLOC_FN(x)	x
-	#define JPH_ALLOC_SCOPE
-#else
-	#define JPH_ALLOC_FN(x)	x##Impl
-	#define JPH_ALLOC_SCOPE static
-#endif
+
+#define JPH_ALLOC_FN(x)	x
+#define JPH_ALLOC_SCOPE
 
 JPH_ALLOC_SCOPE void *JPH_ALLOC_FN(Allocate)(size_t inSize)
 {
@@ -63,23 +60,6 @@ JPH_ALLOC_SCOPE void JPH_ALLOC_FN(AlignedFree)(void *inBlock)
 #endif
 }
 
-#ifndef JPH_DISABLE_CUSTOM_ALLOCATOR
-
-AllocateFunction Allocate = nullptr;
-ReallocateFunction Reallocate = nullptr;
-FreeFunction Free = nullptr;
-AlignedAllocateFunction AlignedAllocate = nullptr;
-AlignedFreeFunction AlignedFree = nullptr;
-
-void RegisterDefaultAllocator()
-{
-	Allocate = AllocateImpl;
-	Reallocate = ReallocateImpl;
-	Free = FreeImpl;
-	AlignedAllocate = AlignedAllocateImpl;
-	AlignedFree = AlignedFreeImpl;
-}
-
-#endif // JPH_DISABLE_CUSTOM_ALLOCATOR
+#endif
 
 JPH_NAMESPACE_END

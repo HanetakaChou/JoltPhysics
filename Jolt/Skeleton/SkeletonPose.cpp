@@ -41,13 +41,18 @@ void SkeletonPose::CalculateJointStates()
 		Mat44 local_transform;
 		int parent = mSkeleton->GetJoint(i).mParentJointIndex;
 		if (parent >= 0)
+		{
 			local_transform = mJointMatrices[parent].Inversed() * mJointMatrices[i];
+			JPH_ASSERT(parent < i, "Joints must be ordered: parents first");
+		}
 		else
+		{
 			local_transform = mJointMatrices[i];
+		}
 
 		JointState &joint = mJoints[i];
 		joint.mTranslation = local_transform.GetTranslation();
-		joint.mRotation = local_transform.GetQuaternion();
+		joint.mRotation = local_transform.GetQuaternion().Normalized();
 	}
 }
 

@@ -12,10 +12,8 @@
 #include <Utils/Log.h>
 #include <Application/DebugUI.h>
 
-JPH_IMPLEMENT_RTTI_VIRTUAL(SkeletonMapperTest)
-{
-	JPH_ADD_BASE_CLASS(SkeletonMapperTest, Test)
-}
+JPH_IMPLEMENT_RTTI_VIRTUAL(SkeletonMapperTest){
+	JPH_ADD_BASE_CLASS(SkeletonMapperTest, Test)}
 
 SkeletonMapperTest::~SkeletonMapperTest()
 {
@@ -63,27 +61,24 @@ void SkeletonMapperTest::Initialize()
 	mRagdollPose.CalculateJointMatrices();
 	neutral_animation->Sample(0.0f, mAnimatedPose);
 	mAnimatedPose.CalculateJointMatrices();
-	mRagdollToAnimated.Initialize(mRagdollPose.GetSkeleton(), mRagdollPose.GetJointMatrices().data(), mAnimatedPose.GetSkeleton(), mAnimatedPose.GetJointMatrices().data());
-
 	// Optionally lock translations (this can be used to prevent ragdolls from stretching)
 	// Try wildly dragging the ragdoll by the head (using spacebar) to see how the ragdoll stretches under stress
-	if (sLockTranslations)
-		mRagdollToAnimated.LockAllTranslations(mAnimatedPose.GetSkeleton(), mAnimatedPose.GetJointMatrices().data());
+	mAnimatedToRagdoll.Initialize(mAnimatedPose.GetSkeleton(), mAnimatedPose.GetJointMatrices().data(), mRagdollPose.GetSkeleton(), mRagdollPose.GetJointMatrices().data(), sLockTranslations);
+	mRagdollToAnimated.Initialize(mRagdollPose.GetSkeleton(), mRagdollPose.GetJointMatrices().data(), mAnimatedPose.GetSkeleton(), mAnimatedPose.GetJointMatrices().data(), sLockTranslations);
 
 	// Calculate initial pose and set it
-	CalculateRagdollPose();
-	mRagdoll->SetPose(mRagdollPose);
-}
-
-void SkeletonMapperTest::CalculateRagdollPose()
-{
+	//
 	// Sample new animated pose
 	mAnimation->Sample(mTime, mAnimatedPose);
 	mAnimatedPose.CalculateJointMatrices();
-
+	//
 	// Map to ragdoll pose
-	mRagdollToAnimated.MapReverse(mAnimatedPose.GetJointMatrices().data(), mRagdollPose.GetJointMatrices().data());
+	Array<Mat44> ragdoll_pose_local(mRagdollPose.GetJointCount());
+	mRagdollPose.CalculateLocalSpaceJointMatrices(ragdoll_pose_local.data());
+	mAnimatedToRagdoll.MapModelSpace(mAnimatedPose.GetJointMatrices().data(), mRagdollPose.GetSkeleton(), ragdoll_pose_local.data(), mRagdollPose.GetJointMatrices().data());
 	mRagdollPose.CalculateJointStates();
+
+	mRagdoll->SetPose(mRagdollPose);
 }
 
 void SkeletonMapperTest::PrePhysicsUpdate(const PreUpdateParams &inParams)
@@ -92,8 +87,19 @@ void SkeletonMapperTest::PrePhysicsUpdate(const PreUpdateParams &inParams)
 	mTime += inParams.mDeltaTime;
 
 	// Drive the ragdoll pose and drive motors to reach it
-	CalculateRagdollPose();
+	//
+	// Sample new animated pose
+	mAnimation->Sample(mTime, mAnimatedPose);
+	mAnimatedPose.CalculateJointMatrices();
+	//
+	// Map to ragdoll pose
+	Array<Mat44> ragdoll_pose_local(mRagdollPose.GetJointCount());
+	mRagdollPose.CalculateLocalSpaceJointMatrices(ragdoll_pose_local.data());
+	mAnimatedToRagdoll.MapModelSpace(mAnimatedPose.GetJointMatrices().data(), mRagdollPose.GetSkeleton(), ragdoll_pose_local.data(), mRagdollPose.GetJointMatrices().data());
+	mRagdollPose.CalculateJointStates();
+
 	mRagdoll->DriveToPoseUsingMotors(mRagdollPose);
+	// mRagdoll->DriveToPoseUsingKinematics(mRagdollPose, inParams.mDeltaTime);
 
 #ifdef JPH_DEBUG_RENDERER
 	// Draw animated skeleton
@@ -119,7 +125,8 @@ void SkeletonMapperTest::PrePhysicsUpdate(const PreUpdateParams &inParams)
 	SkeletonPose pose2_world;
 	pose2_world.SetSkeleton(mAnimatedPose.GetSkeleton());
 	pose2_world.SetRootOffset(root_offset);
-	mRagdollToAnimated.Map(pose1_model.data(), pose2_local.data(), pose2_world.GetJointMatrices().data());
+	mRagdollToAnimated.MapModelSpace(pose1_model.data(), pose2_world.GetSkeleton(), pose2_local.data(), pose2_world.GetJointMatrices().data());
+	// pose2_world.CalculateJointStates();
 
 #ifdef JPH_DEBUG_RENDERER
 	// Draw mapped pose
@@ -130,7 +137,8 @@ void SkeletonMapperTest::PrePhysicsUpdate(const PreUpdateParams &inParams)
 
 void SkeletonMapperTest::CreateSettingsMenu(DebugUI *inUI, UIElement *inSubMenu)
 {
-	inUI->CreateCheckBox(inSubMenu, "Lock Translations", sLockTranslations, [this](UICheckBox::EState inState) { sLockTranslations = inState == UICheckBox::STATE_CHECKED; RestartTest(); });
+	inUI->CreateCheckBox(inSubMenu, "Lock Translations", sLockTranslations, [this](UICheckBox::EState inState)
+						 { sLockTranslations = inState == UICheckBox::STATE_CHECKED; RestartTest(); });
 }
 
 void SkeletonMapperTest::SaveState(StateRecorder &inStream) const

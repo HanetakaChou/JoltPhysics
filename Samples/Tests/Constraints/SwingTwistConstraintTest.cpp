@@ -5,7 +5,7 @@
 #include <TestFramework.h>
 
 #include <Tests/Constraints/SwingTwistConstraintTest.h>
-#include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/GroupFilterTable.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 #include <Application/DebugUI.h>
@@ -18,68 +18,104 @@ JPH_IMPLEMENT_RTTI_VIRTUAL(SwingTwistConstraintTest)
 
 void SwingTwistConstraintTest::Initialize()
 {
-	// Floor
-	CreateFloor();
-
-	float half_cylinder_height = 1.5f;
-
-	const int cChainLength = 10;
-
-	// Build a collision group filter that disables collision between adjacent bodies
-	Ref<GroupFilterTable> group_filter = new GroupFilterTable(cChainLength);
-	for (CollisionGroup::SubGroupID i = 0; i < cChainLength - 1; ++i)
-		group_filter->DisableCollision(i, i + 1);
-
-	Body *prev = nullptr;
-	Quat rotation = Quat::sRotation(Vec3::sAxisZ(), 0.5f * JPH_PI);
-	RVec3 position(0, 25, 0);
-	for (int i = 0; i < cChainLength; ++i)
+	JPH::Body *fixed_body;
 	{
-		position += Vec3(2.0f * half_cylinder_height, 0, 0);
+		JPH::Vec3 const half_extents(1.0F, 0.25F, 0.5F);
 
-		Body &segment = *mBodyInterface->CreateBody(BodyCreationSettings(new CapsuleShape(half_cylinder_height, 0.5f), position, Quat::sRotation(Vec3::sAxisX(), 0.25f * JPH_PI * i) * rotation, i == 0? EMotionType::Static : EMotionType::Dynamic, i == 0? Layers::NON_MOVING : Layers::MOVING));
-		segment.SetCollisionGroup(CollisionGroup(group_filter, 0, CollisionGroup::SubGroupID(i)));
-		mBodyInterface->AddBody(segment.GetID(), EActivation::Activate);
-		if (i != 0)
-			segment.SetAllowSleeping(false);
+		JPH::Quat const rotation(0.0F, 0.0F, 0.0F, 1.0F);
 
-		if (prev != nullptr)
-		{
-			Ref<SwingTwistConstraintSettings> settings = new SwingTwistConstraintSettings;
-			settings->mPosition1 = settings->mPosition2 = position + Vec3(-half_cylinder_height, 0, 0);
-			settings->mTwistAxis1 = settings->mTwistAxis2 = Vec3::sAxisX();
-			settings->mPlaneAxis1 = settings->mPlaneAxis2 = Vec3::sAxisY();
-			settings->mNormalHalfConeAngle = sNormalHalfConeAngle;
-			settings->mPlaneHalfConeAngle = sPlaneHalfConeAngle;
-			settings->mTwistMinAngle = sTwistMinAngle;
-			settings->mTwistMaxAngle = sTwistMaxAngle;
+		JPH::Vec3 const position(-2.0F, 0.0F, 0.0F);
 
-			Ref<SwingTwistConstraint> constraint = static_cast<SwingTwistConstraint *>(settings->Create(*prev, segment));
-			mPhysicsSystem->AddConstraint(constraint);
-			mConstraints.push_back(constraint);
-		}
+		JPH::Shape *shape = new JPH::BoxShape(half_extents);
 
-		prev = &segment;
+		JPH::BodyCreationSettings body_settings(shape, position, rotation, JPH::EMotionType::Static, Layers::NON_MOVING);
+
+		fixed_body = mBodyInterface->CreateBody(body_settings);
 	}
+
+	JPH::Body *moveable_body;
+	{
+		JPH::Vec3 const half_extents(1.0F, 0.25F, 0.5F);
+
+		JPH::Quat const rotation(0.0F, 0.0F, 0.0F, 1.0F);
+
+		JPH::Vec3 const position(2.0F, 0.0F, 0.0F);
+
+		JPH::Shape *shape = new JPH::BoxShape(half_extents);
+
+		JPH::BodyCreationSettings body_settings(shape, position, rotation, JPH::EMotionType::Dynamic, Layers::MOVING);
+		body_settings.mOverrideMassProperties = JPH::EOverrideMassProperties::CalculateInertia;
+		body_settings.mMassPropertiesOverride.mMass = 10.0F;
+
+		moveable_body = mBodyInterface->CreateBody(body_settings);
+	}
+
+	JPH::SwingTwistConstraint *constraint;
+	{
+		JPH::Vec3 const pivot(0.0f, 0.0f, 0.0f);
+		JPH::Vec3 const twistAxis(1.0f, 0.0f, 0.0f);
+		JPH::Vec3 const planeAxis(0.0f, 1.0f, 0.0f);
+
+		float const twistMin = JPH::JPH_PI * -0.1F;
+		float const twistMax = JPH::JPH_PI * 0.4F;
+		float const planeMin = JPH::JPH_PI * -0.2F;
+		float const planeMax = JPH::JPH_PI * 0.1F;
+		float const cone = JPH::JPH_PI * 0.3F;
+
+		sTwistMinAngle = twistMin;
+		sTwistMaxAngle = twistMax;
+		sPlaneHalfConeAngle = (planeMax - planeMin) * 0.5F;
+		sNormalHalfConeAngle = cone;
+
+		JPH::SwingTwistConstraintSettings constraint_settings;
+		constraint_settings.SetEmbedded();
+
+		constraint_settings.mSpace = JPH::EConstraintSpace::WorldSpace;
+		constraint_settings.mPosition1 = pivot;
+		constraint_settings.mPosition2 = pivot;
+		constraint_settings.mTwistAxis1 = twistAxis;
+		constraint_settings.mTwistAxis2 = twistAxis;
+		constraint_settings.mPlaneAxis1 = planeAxis;
+		constraint_settings.mPlaneAxis2 = planeAxis;
+
+		constraint_settings.mTwistMinAngle = sTwistMinAngle;
+		constraint_settings.mTwistMaxAngle = sTwistMaxAngle;
+		constraint_settings.mPlaneHalfConeAngle = sPlaneHalfConeAngle;
+		constraint_settings.mNormalHalfConeAngle = sNormalHalfConeAngle;
+
+		constraint = static_cast<JPH::SwingTwistConstraint *>(constraint_settings.Create(*fixed_body, *moveable_body));
+	}
+
+	moveable_body->SetAllowSleeping(false);
+
+	mBodyInterface->AddBody(fixed_body->GetID(), EActivation::Activate);
+	mBodyInterface->AddBody(moveable_body->GetID(), EActivation::Activate);
+	mPhysicsSystem->AddConstraint(constraint);
+
+	mConstraint = constraint;
 }
 
 void SwingTwistConstraintTest::PrePhysicsUpdate(const PreUpdateParams &inParams)
 {
-	for (SwingTwistConstraint *c : mConstraints)
+	if (sTwistMinAngle <= sTwistMaxAngle)
 	{
-		c->SetNormalHalfConeAngle(sNormalHalfConeAngle);
-		c->SetPlaneHalfConeAngle(sPlaneHalfConeAngle);
-		c->SetTwistMinAngle(sTwistMinAngle);
-		c->SetTwistMaxAngle(sTwistMaxAngle);
+		mConstraint->SetTwistMinAngle(sTwistMinAngle);
+		mConstraint->SetTwistMaxAngle(sTwistMaxAngle);
 	}
+	mConstraint->SetPlaneHalfConeAngle(sPlaneHalfConeAngle);
+	mConstraint->SetNormalHalfConeAngle(sNormalHalfConeAngle);
 }
 
 void SwingTwistConstraintTest::CreateSettingsMenu(DebugUI *inUI, UIElement *inSubMenu)
 {
-	inUI->CreateSlider(inSubMenu, "Min Twist Angle (deg)", RadiansToDegrees(sTwistMinAngle), -180.0f, 180.0f, 1.0f, [=](float inValue) { sTwistMinAngle = DegreesToRadians(inValue); });
-	inUI->CreateSlider(inSubMenu, "Max Twist Angle (deg)", RadiansToDegrees(sTwistMaxAngle), -180.0f, 180.0f, 1.0f, [=](float inValue) { sTwistMaxAngle = DegreesToRadians(inValue); });
-	inUI->CreateSlider(inSubMenu, "Normal Half Cone Angle (deg)", RadiansToDegrees(sNormalHalfConeAngle), 0.0f, 180.0f, 1.0f, [=](float inValue) { sNormalHalfConeAngle = DegreesToRadians(inValue); });
-	inUI->CreateSlider(inSubMenu, "Plane Half Cone Angle (deg)", RadiansToDegrees(sPlaneHalfConeAngle), 0.0f, 180.0f, 1.0f, [=](float inValue) { sPlaneHalfConeAngle = DegreesToRadians(inValue); });
+	inUI->CreateSlider(inSubMenu, "Min Twist Angle (deg)", RadiansToDegrees(sTwistMinAngle), -180.0f, 180.0f, 1.0f, [=](float inValue)
+					   { sTwistMinAngle = DegreesToRadians(inValue); });
+	inUI->CreateSlider(inSubMenu, "Max Twist Angle (deg)", RadiansToDegrees(sTwistMaxAngle), -180.0f, 180.0f, 1.0f, [=](float inValue)
+					   { sTwistMaxAngle = DegreesToRadians(inValue); });
+	inUI->CreateSlider(inSubMenu, "Normal Half Cone Angle (deg)", RadiansToDegrees(sNormalHalfConeAngle), 0.0f, 180.0f, 1.0f, [=](float inValue)
+					   { sNormalHalfConeAngle = DegreesToRadians(inValue); });
+	inUI->CreateSlider(inSubMenu, "Plane Half Cone Angle (deg)", RadiansToDegrees(sPlaneHalfConeAngle), 0.0f, 180.0f, 1.0f, [=](float inValue)
+					   { sPlaneHalfConeAngle = DegreesToRadians(inValue); });
 
 	inUI->ShowMenu(inSubMenu);
 }

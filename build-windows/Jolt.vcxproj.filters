@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{1c75a2da-2d34-4992-a88d-1a92d2c96685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{e28e129f-a4d1-400e-89f1-e5f398663552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Body">
+      <UniqueIdentifier>{a80e4dad-a4b4-4d7c-90bd-b62b2653d37c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Collision">
+      <UniqueIdentifier>{c09e88a0-b43a-4d86-ab44-d55de1c9ea42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Collision\Shape">
+      <UniqueIdentifier>{3c18ade3-98f2-426b-8dc1-e75a05d95101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Collision\BroadPhase">
+      <UniqueIdentifier>{8d69e903-480a-412a-88b9-f4b886e25c37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\Constraints">
+      <UniqueIdentifier>{165c2f65-3b86-485d-81a8-e1cdf51df6df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\SoftBody">
+      <UniqueIdentifier>{013bffa3-460e-44a5-bb81-422357217f20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectStream">
+      <UniqueIdentifier>{c329b767-d53a-4bfc-be4a-a3eade89340e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{98d5a6dd-fcb7-45d5-a3e3-452e44e662ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TriangleSplitter">
+      <UniqueIdentifier>{f28c0dfd-3fb0-4583-80e8-ea12ec3a1759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TriangleGrouper">
+      <UniqueIdentifier>{39aca8bb-b2a5-4469-a08a-e6826cd5549f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AABBTree">
+      <UniqueIdentifier>{4aa6bf36-9cb3-49bd-b3d3-9ad33b5dca45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Jolt\Jolt.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Jolt\Core\Color.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\Factory.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\IssueReporting.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\JobSystemSingleThreaded.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\JobSystemThreadPool.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\JobSystemWithBarrier.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\LinearCurve.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\Memory.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\Profiler.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\RTTI.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\Semaphore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\StringTools.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Core\TickCounter.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\PhysicsUpdateContext.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\PhysicsSystem.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\PhysicsScene.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\LargeIslandSplitter.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\IslandBuilder.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\DeterminismLog.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\StateRecorderImpl.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\BodyCreationSettings.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\BodyInterface.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\BodyManager.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\MassProperties.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\MotionProperties.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Body\Body.cpp">
+      <Filter>Physics\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CastConvexVsTriangles.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CastSphereVsTriangles.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CollideConvexVsTriangles.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CollideSphereVsTriangles.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CollisionDispatch.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\CollisionGroup.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\EstimateCollisionResponse.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\GroupFilter.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\GroupFilterTable.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\ManifoldBetweenTwoFaces.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\NarrowPhaseQuery.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\NarrowPhaseStats.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\PhysicsMaterial.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\PhysicsMaterialSimple.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\TransformedShape.cpp">
+      <Filter>Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\BoxShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CapsuleShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CompoundShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ConvexHullShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ConvexShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\CylinderShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\DecoratedShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\EmptyShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\HeightFieldShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\MeshShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\MutableCompoundShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\OffsetCenterOfMassShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\PlaneShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\RotatedTranslatedShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\ScaledShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\Shape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\SphereShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\StaticCompoundShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TaperedCapsuleShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TaperedCylinderShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\Shape\TriangleShape.cpp">
+      <Filter>Physics\Collision\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhase.cpp">
+      <Filter>Physics\Collision\BroadPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhaseBruteForce.cpp">
+      <Filter>Physics\Collision\BroadPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\BroadPhaseQuadTree.cpp">
+      <Filter>Physics\Collision\BroadPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Collision\BroadPhase\QuadTree.cpp">
+      <Filter>Physics\Collision\BroadPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraintPath.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\PathConstraintPathHermite.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\PointConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\PulleyConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\RackAndPinionConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\SixDOFConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\SliderConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\SpringSettings.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\SwingTwistConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\TwoBodyConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\ConeConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\Constraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\ConstraintManager.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\ContactConstraintManager.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\DistanceConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\FixedConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\GearConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\HingeConstraint.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\Constraints\MotorSettings.cpp">
+      <Filter>Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyMotionProperties.cpp">
+      <Filter>Physics\SoftBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyShape.cpp">
+      <Filter>Physics\SoftBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodySharedSettings.cpp">
+      <Filter>Physics\SoftBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Physics\SoftBody\SoftBodyCreationSettings.cpp">
+      <Filter>Physics\SoftBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\RegisterTypes.cpp" />
+    <ClCompile Include="..\Jolt\ObjectStream\SerializableObject.cpp">
+      <Filter>ObjectStream</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Geometry\ConvexHullBuilder.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Geometry\ConvexHullBuilder2D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Geometry\Indexify.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\Geometry\OrientedBox.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitter.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterBinning.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterFixedLeafSize.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterLongestAxis.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterMean.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleSplitter\TriangleSplitterMorton.cpp">
+      <Filter>TriangleSplitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleGrouper\TriangleGrouperClosestCentroid.cpp">
+      <Filter>TriangleGrouper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\TriangleGrouper\TriangleGrouperMorton.cpp">
+      <Filter>TriangleGrouper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Jolt\AABBTree\AABBTreeBuilder.cpp">
+      <Filter>AABBTree</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Jolt\RegisterTypes.h" />
+  </ItemGroup>
+</Project>

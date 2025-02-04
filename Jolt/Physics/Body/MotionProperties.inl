@@ -129,12 +129,71 @@ void MotionProperties::ApplyForceTorqueAndDragInternal(QuatArg inBodyRotation, V
 	// Update angular velocity
 	mAngularVelocity += inDeltaTime * MultiplyWorldSpaceInverseInertiaByVector(inBodyRotation, GetAccumulatedTorque());
 
-	// Linear damping: dv/dt = -c * v
-	// Solution: v(t) = v(0) * e^(-c * t) or v2 = v1 * e^(-c * dt)
-	// Taylor expansion of e^(-c * dt) = 1 - c * dt + ...
-	// Since dt is usually in the order of 1/60 and c is a low number too this approximation is good enough
-	mLinearVelocity *= max(0.0f, 1.0f - mLinearDamping * inDeltaTime);
-	mAngularVelocity *= max(0.0f, 1.0f - mAngularDamping * inDeltaTime);
+	// Bullet Physics Additional Damping
+	{
+		JPH::MotionProperties &motion_properties = *this;
+		float const time_step = inDeltaTime;
+
+		// [btRigidBodyConstructionInfo::btRigidBodyConstructionInfo](https://github.com/bulletphysics/bullet3/blob/master/src/BulletDynamics/Dynamics/btRigidBody.h#L144)
+		constexpr float const additional_damping_factor = 0.005F;
+		constexpr float const additional_linear_damping_threshold_sqr = 0.01F;
+		constexpr float const additional_angular_damping_threshold_sqr = 0.01F;
+
+		float const linear_damping = JPH::min(JPH::max(0.0F, motion_properties.GetLinearDamping()), 1.0F);
+		float const angular_damping = JPH::min(JPH::max(0.0F, motion_properties.GetAngularDamping()), 1.0F);
+
+		// [btRigidBody::applyDamping](https://github.com/bulletphysics/bullet3/blob/master/src/BulletDynamics/Dynamics/btRigidBody.cpp#L149)
+		JPH::Vec3 linear_velocity = motion_properties.GetLinearVelocity();
+		JPH::Vec3 angular_velocity = motion_properties.GetAngularVelocity();
+
+		linear_velocity *= JPH::max(0.0F, std::pow(1.0F - linear_damping, JPH::max(1E-6F, time_step)));
+		angular_velocity *= JPH::max(0.0F, std::pow(1.0F - angular_damping, JPH::max(1E-6F, time_step)));
+
+		if ((linear_velocity.LengthSq() < additional_linear_damping_threshold_sqr) && (angular_velocity.LengthSq() < additional_angular_damping_threshold_sqr))
+		{
+			linear_velocity *= additional_damping_factor;
+			angular_velocity *= additional_damping_factor;
+		}
+
+		float linear_speed = linear_velocity.Length();
+		if (linear_speed < linear_damping)
+		{
+			constexpr float const linear_damping_speed = 0.005F;
+			if (linear_speed > linear_damping_speed)
+			{
+				JPH::Vec3 linear_damping_velocity = linear_velocity;
+				linear_damping_velocity = linear_damping_velocity.Normalized();
+				linear_damping_velocity *= linear_damping_speed;
+
+				linear_velocity -= linear_damping_velocity;
+			}
+			else
+			{
+				linear_velocity = JPH::Vec3(0.0F, 0.0F, 0.0F);
+			}
+		}
+
+		float angular_speed = angular_velocity.Length();
+		if (angular_speed < angular_damping)
+		{
+			constexpr float const angular_damping_speed = 0.005F;
+			if (angular_speed > angular_damping_speed)
+			{
+				JPH::Vec3 angular_damping_velocity = angular_velocity;
+				angular_damping_velocity = angular_damping_velocity.Normalized();
+				angular_damping_velocity *= angular_damping_speed;
+
+				angular_velocity -= angular_damping_velocity;
+			}
+			else
+			{
+				angular_velocity = JPH::Vec3(0.0F, 0.0F, 0.0F);
+			}
+		}
+
+		motion_properties.SetLinearVelocity(linear_velocity);
+		motion_properties.SetAngularVelocity(angular_velocity);
+	}
 
 	// Clamp velocities
 	ClampLinearVelocity();
