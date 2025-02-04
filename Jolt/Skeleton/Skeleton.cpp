@@ -11,6 +11,7 @@
 
 JPH_NAMESPACE_BEGIN
 
+#ifdef JPH_OBJECT_STREAM
 JPH_IMPLEMENT_SERIALIZABLE_NON_VIRTUAL(Skeleton::Joint)
 {
 	JPH_ADD_ATTRIBUTE(Joint, mName)
@@ -21,31 +22,87 @@ JPH_IMPLEMENT_SERIALIZABLE_NON_VIRTUAL(Skeleton)
 {
 	JPH_ADD_ATTRIBUTE(Skeleton, mJoints)
 }
+#endif
+
+#ifdef JPH_OBJECT_STREAM
+int Skeleton::AddJoint(const string_view &inName, const string_view &inParentName)
+{
+	mJoints.emplace_back(inName, inParentName, -1);
+
+	int i = (int)mJoints.size() - 1;
+
+	JointNameMap::const_iterator j = mJointNameMap.find(mJoints[i].mName);
+	JPH_ASSERT(mJointNameMap.end() == j);
+	mJointNameMap.emplace_hint(mJointNameMap.end(), mJoints[i].mName, i);
+
+	return i;
+}
+#endif
+
+int Skeleton::AddJoint(const string_view &inName, int inParentIndex)
+{
+	mJoints.emplace_back(
+		inName,
+#ifdef JPH_OBJECT_STREAM
+		inParentIndex >= 0 ? mJoints[inParentIndex].mName : String(),
+#endif
+		inParentIndex);
+
+	int i = (int)mJoints.size() - 1;
+
+	JointNameMap::const_iterator j = mJointNameMap.find(mJoints[i].mName);
+	JPH_ASSERT(mJointNameMap.end() == j);
+	mJointNameMap.emplace_hint(j, mJoints[i].mName, i);
+
+	return i;
+}
 
 int Skeleton::GetJointIndex(const string_view &inName) const
 {
-	for (int i = 0; i < (int)mJoints.size(); ++i)
-		if (mJoints[i].mName == inName)
-			return i;
+	JointNameMap::const_iterator j = mJointNameMap.find(inName);
 
-	return -1;
+	if (mJointNameMap.end() != j)
+	{
+		return j->second;
+	}
+	else
+	{
+		return -1;
+	}
 }
 
+#ifdef JPH_OBJECT_STREAM
 void Skeleton::CalculateParentJointIndices()
 {
-	for (Joint &j : mJoints)
-		j.mParentJointIndex = GetJointIndex(j.mParentName);
-}
+	for (int i = 0; i < (int)mJoints.size(); ++i)
+	{
+		mJointNameMap.emplace_hint(mJointNameMap.end(), mJoints[i].mName, i);
+	}
 
+	for (int i = 0; i < (int)mJoints.size(); ++i)
+	{
+		mJoints[i].mParentJointIndex = GetJointIndex(mJoints[i].mParentName);
+	}
+}
+#endif
+
+#ifdef JPH_ENABLE_ASSERTS
 bool Skeleton::AreJointsCorrectlyOrdered() const
 {
 	for (int i = 0; i < (int)mJoints.size(); ++i)
+	{
 		if (mJoints[i].mParentJointIndex >= i)
+		{
 			return false;
+		}
+	}
 
 	return true;
 }
+#endif
 
+
+#ifdef JPH_OBJECT_STREAM
 void Skeleton::SaveBinaryState(StreamOut &inStream) const
 {
 	inStream.Write((uint32)mJoints.size());
@@ -78,5 +135,6 @@ Skeleton::SkeletonResult Skeleton::sRestoreFromBinaryState(StreamIn &inStream)
 		result.Set(skeleton);
 	return result;
 }
+#endif
 
 JPH_NAMESPACE_END
