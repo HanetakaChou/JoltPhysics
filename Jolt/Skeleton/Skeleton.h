@@ -10,13 +10,17 @@
 
 JPH_NAMESPACE_BEGIN
 
+#ifdef JPH_OBJECT_STREAM
 class StreamIn;
 class StreamOut;
+#endif
 
 /// Resource that contains the joint hierarchy for a skeleton
 class JPH_EXPORT Skeleton : public RefTarget<Skeleton>
 {
+#ifdef JPH_OBJECT_STREAM
 	JPH_DECLARE_SERIALIZABLE_NON_VIRTUAL(JPH_EXPORT, Skeleton)
+#endif
 
 public:
 	using SkeletonResult = Result<Ref<Skeleton>>;
@@ -24,7 +28,9 @@ public:
 	/// Declare internal structure for a joint
 	class Joint
 	{
+#ifdef JPH_OBJECT_STREAM
 		JPH_DECLARE_SERIALIZABLE_NON_VIRTUAL(JPH_EXPORT, Joint)
+#endif
 
 	public:
 							Joint() = default;
@@ -44,25 +50,31 @@ public:
 	int						GetJointCount() const														{ return (int)mJoints.size(); }
 	const Joint &			GetJoint(int inJoint) const													{ return mJoints[inJoint]; }
 	Joint &					GetJoint(int inJoint)														{ return mJoints[inJoint]; }
-	uint					AddJoint(const string_view &inName, const string_view &inParentName = string_view()) { mJoints.emplace_back(inName, inParentName, -1); return (uint)mJoints.size() - 1; }
-	uint					AddJoint(const string_view &inName, int inParentIndex)						{ mJoints.emplace_back(inName, inParentIndex >= 0? mJoints[inParentIndex].mName : String(), inParentIndex); return (uint)mJoints.size() - 1; }
+	int						AddJoint(const string_view &inName, const string_view &inParentName = string_view()) { mJoints.emplace_back(inName, inParentName, -1); return (int)mJoints.size() - 1; }
+	int						AddJoint(const string_view &inName, int inParentIndex)						{ mJoints.emplace_back(inName, inParentIndex >= 0? mJoints[inParentIndex].mName : String(), inParentIndex); return (int)mJoints.size() - 1; }
 	///@}
 
+#ifdef JPH_ENABLE_ASSERTS
 	/// Find joint by name
 	int						GetJointIndex(const string_view &inName) const;
+#endif
 
 	/// Fill in parent joint indices based on name
 	void					CalculateParentJointIndices();
 
+#ifdef JPH_ENABLE_ASSERTS
 	/// Many of the algorithms that use the Skeleton class require that parent joints are in the mJoints array before their children.
 	/// This function returns true if this is the case, false if not.
 	bool					AreJointsCorrectlyOrdered() const;
+#endif
 
+#ifdef JPH_OBJECT_STREAM
 	/// Saves the state of this object in binary form to inStream.
 	void					SaveBinaryState(StreamOut &inStream) const;
 
 	/// Restore the state of this object from inStream.
 	static SkeletonResult	sRestoreFromBinaryState(StreamIn &inStream);
+#endif
 
 private:
 	/// Joints

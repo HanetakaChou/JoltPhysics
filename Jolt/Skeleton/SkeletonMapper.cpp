@@ -100,6 +100,10 @@ void SkeletonMapper::Initialize(const Skeleton *inSkeleton1, const Mat44 *inNeut
 				// Insert the chain
 				mChains.emplace_back(std::move(chain1), std::move(chain2));
 			}
+			else
+			{
+				// TODO: do we need warning?
+			}
 		}
 	}
 
@@ -169,6 +173,7 @@ void SkeletonMapper::Map(const Mat44 *inPose1ModelSpace, const Mat44 *inPose2Loc
 		outPose2ModelSpace[m.mJointIdx2] = inPose1ModelSpace[m.mJointIdx1] * m.mJoint1To2;
 
 	// Apply chain mappings
+	// TODO: Reaching IK? CCD/FABRIK?
 	for (const Chain &c : mChains)
 	{
 		// Calculate end of chain given local space transforms of the joints of the chain

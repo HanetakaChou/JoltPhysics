@@ -35,7 +35,7 @@ public:
 
 	///@name Properties of the joints
 	///@{
-	uint						GetJointCount() const													{ return (uint)mJoints.size(); }
+	int							GetJointCount() const													{ return (int)mJoints.size(); }
 	const JointStateVector &	GetJoints() const														{ return mJoints; }
 	JointStateVector &			GetJoints()																{ return mJoints; }
 	const JointState &			GetJoint(int inJoint) const												{ return mJoints[inJoint]; }

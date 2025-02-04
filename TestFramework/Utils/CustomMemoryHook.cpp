@@ -95,14 +95,18 @@ static int MyAllocHook(int nAllocType, void *pvData, size_t nSize, int nBlockUse
 	return true;
 }
 
+JPH_NAMESPACE_BEGIN
+
+AllocateFunction Allocate = AllocateHook;
+ReallocateFunction Reallocate = ReallocateHook;
+FreeFunction Free = FreeHook;
+AlignedAllocateFunction AlignedAllocate = AlignedAllocateHook;
+AlignedFreeFunction AlignedFree = AlignedFreeHook;
+
+JPH_NAMESPACE_END
+
 void RegisterCustomMemoryHook()
 {
-	Allocate = AllocateHook;
-	Reallocate = ReallocateHook;
-	Free = FreeHook;
-	AlignedAllocate = AlignedAllocateHook;
-	AlignedFree = AlignedFreeHook;
-
 	_CrtSetAllocHook(MyAllocHook);
 }
 
